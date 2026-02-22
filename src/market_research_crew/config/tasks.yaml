@@ -1,0 +1,48 @@
+market_research_task:
+  description: >
+    Conduct a comprehensive market analysis including industry size,
+    growth trends, demand patterns, emerging opportunities,
+    and potential risks relevant to the target market.
+  expected_output: >
+    A structured market research report outlining key trends,
+    growth projections, opportunity areas, and risk factors.
+  agent: market_research_specialist
+
+competitive_intelligence_task:
+  description: >
+    Analyze key competitors by evaluating their products,
+    pricing strategies, positioning, strengths, weaknesses,
+    and market share.
+  expected_output: >
+    A comparative competitor analysis report highlighting
+    strategic gaps, differentiation opportunities,
+    and competitive advantages.
+  agent: competitive_intelligence_analyst
+
+customer_insights_task:
+  description: >
+    Analyze customer segments, behavior patterns, feedback,
+    pain points, and unmet needs to uncover actionable insights.
+  expected_output: >
+    A detailed customer insights report including personas,
+    key pain points, motivations, and prioritized needs.
+  agent: customer_insights_researcher
+
+product_strategy_task:
+  description: >
+    Develop a product positioning strategy and feature roadmap
+    based on market, competitor, and customer analysis findings.
+  expected_output: >
+    A strategic product roadmap outlining positioning,
+    value proposition, and prioritized features.
+  agent: product_strategy_advisor
+
+business_analyst_task:
+  description: >
+    Evaluate financial feasibility, cost structure,
+    revenue projections, operational considerations,
+    and measurable KPIs.
+  expected_output: >
+    A business feasibility report including financial estimates,
+    risk assessment, and defined performance indicators.
+  agent: business_analyst
