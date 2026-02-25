@@ -7,6 +7,7 @@ market_research_task:
     A structured market research report outlining key trends,
     growth projections, opportunity areas, and risk factors.
   agent: market_research_specialist
+  output_file: output/market_research.md
 
 competitive_intelligence_task:
   description: >
@@ -18,6 +19,7 @@ competitive_intelligence_task:
     strategic gaps, differentiation opportunities,
     and competitive advantages.
   agent: competitive_intelligence_analyst
+  output_file: output/competitive_intelligence.md
 
 customer_insights_task:
   description: >
@@ -27,6 +29,7 @@ customer_insights_task:
     A detailed customer insights report including personas,
     key pain points, motivations, and prioritized needs.
   agent: customer_insights_researcher
+  output_file: output/customer_insights.md
 
 product_strategy_task:
   description: >
@@ -36,13 +39,14 @@ product_strategy_task:
     A strategic product roadmap outlining positioning,
     value proposition, and prioritized features.
   agent: product_strategy_advisor
+  output_file: output/product_strategy.md
 
 business_analyst_task:
   description: >
-    Evaluate financial feasibility, cost structure,
-    revenue projections, operational considerations,
-    and measurable KPIs.
+    Synthesize all research findings into a comprehensive business
+    analysis report with actionable recommendations.
   expected_output: >
-    A business feasibility report including financial estimates,
-    risk assessment, and defined performance indicators.
+    A complete business analysis report with strategic
+    recommendations and implementation roadmap.
   agent: business_analyst
+  output_file: output/business_analysis.md
