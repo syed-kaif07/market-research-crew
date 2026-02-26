@@ -1,54 +1,107 @@
-# MarketResearchCrew Crew
+# 🧠 Market Research Crew
 
-Welcome to the MarketResearchCrew Crew project, powered by [crewAI](https://crewai.com). This template is designed to help you set up a multi-agent AI system with ease, leveraging the powerful and flexible framework provided by crewAI. Our goal is to enable your agents to collaborate effectively on complex tasks, maximizing their collective intelligence and capabilities.
+A multi-agent AI system built with **CrewAI** and powered by **Groq's LLaMA 3.3 70B** model. Five specialized AI agents collaborate sequentially to produce a comprehensive market research report for any product idea.
 
-## Installation
+---
 
-Ensure you have Python >=3.10 <3.14 installed on your system. This project uses [UV](https://docs.astral.sh/uv/) for dependency management and package handling, offering a seamless setup and execution experience.
+## 🚀 Demo
 
-First, if you haven't already, install uv:
+Input a product idea like `"AI-powered smart home assistant"` and the crew generates:
 
+- 📊 Market Research Report
+- 🕵️ Competitive Intelligence Report
+- 👥 Customer Insights Report
+- 🗺️ Product Strategy Roadmap
+- 📈 Business Analysis Report
+
+---
+
+## 🤖 Agents
+
+| Agent | Role |
+|-------|------|
+| `market_research_specialist` | Analyzes industry size, trends, and opportunities |
+| `competitive_intelligence_analyst` | Evaluates competitors, pricing, and market share |
+| `customer_insights_researcher` | Uncovers customer personas, pain points, and needs |
+| `product_strategy_advisor` | Develops positioning strategy and feature roadmap |
+| `business_analyst` | Synthesizes findings into actionable recommendations |
+
+---
+
+## 🛠️ Tech Stack
+
+- **Framework:** [CrewAI](https://crewai.com)
+- **LLM:** Groq — `llama-3.3-70b-versatile` (free tier)
+- **Language:** Python 3.13
+- **Package Manager:** uv
+
+---
+
+## ⚙️ Setup
+
+### 1. Clone the repo
 ```bash
-pip install uv
+git clone https://github.com/syed-kaif07/market-research-crew.git
+cd market-research-crew
 ```
 
-Next, navigate to your project directory and install the dependencies:
-
-(Optional) Lock the dependencies and install them by using the CLI command:
+### 2. Install dependencies
 ```bash
-crewai install
-```
-### Customizing
-
-**Add your `OPENAI_API_KEY` into the `.env` file**
-
-- Modify `src/market_research_crew/config/agents.yaml` to define your agents
-- Modify `src/market_research_crew/config/tasks.yaml` to define your tasks
-- Modify `src/market_research_crew/crew.py` to add your own logic, tools and specific args
-- Modify `src/market_research_crew/main.py` to add custom inputs for your agents and tasks
-
-## Running the Project
-
-To kickstart your crew of AI agents and begin task execution, run this from the root folder of your project:
-
-```bash
-$ crewai run
+pip install crewai uv
+uv sync
 ```
 
-This command initializes the market-research-crew Crew, assembling the agents and assigning them tasks as defined in your configuration.
+### 3. Set up environment variables
+Create a `.env` file in the root directory:
+```env
+MODEL=groq/llama-3.3-70b-versatile
+GROQ_API_KEY=your_groq_api_key_here
+```
 
-This example, unmodified, will run the create a `report.md` file with the output of a research on LLMs in the root folder.
+Get your free Groq API key at: [console.groq.com](https://console.groq.com)
 
-## Understanding Your Crew
+### 4. Run the crew
+```bash
+crewai run
+```
 
-The market-research-crew Crew is composed of multiple AI agents, each with unique roles, goals, and tools. These agents collaborate on a series of tasks, defined in `config/tasks.yaml`, leveraging their collective skills to achieve complex objectives. The `config/agents.yaml` file outlines the capabilities and configurations of each agent in your crew.
+---
 
-## Support
+## 📁 Output
 
-For support, questions, or feedback regarding the MarketResearchCrew Crew or crewAI.
-- Visit our [documentation](https://docs.crewai.com)
-- Reach out to us through our [GitHub repository](https://github.com/joaomdmoura/crewai)
-- [Join our Discord](https://discord.com/invite/X4JWnZnxPb)
-- [Chat with our docs](https://chatg.pt/DWjSBZn)
+Reports are saved to the `/output` directory:
 
-Let's create wonders together with the power and simplicity of crewAI.
+```
+output/
+├── market_research.md
+├── competitive_intelligence.md
+├── customer_insights.md
+├── product_strategy.md
+└── business_analysis.md
+```
+
+---
+
+## 🔧 Configuration
+
+Modify the product idea in `src/market_research_crew/main.py`:
+
+```python
+inputs = {
+    "product_idea": "Your product idea here"
+}
+```
+
+---
+
+## 📌 Notes
+
+- Uses **Groq's free tier** — no credit card required
+- Agents run **sequentially**, each building on previous results
+- Rate limit: 12,000 tokens/minute on free tier
+
+---
+
+## 📬 Connect
+
+Built by [Syed Kaifuddin](https://github.com/syed-kaif07)
