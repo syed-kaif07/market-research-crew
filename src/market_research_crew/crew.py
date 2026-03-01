@@ -12,7 +12,7 @@ llm = LLM(
     model=os.environ.get("MODEL"),
     api_key=os.environ.get("GROQ_API_KEY"),
     temperature=0.7,
-    max_tokens=300,
+    max_tokens=500,
     max_retries=3,
 )
 

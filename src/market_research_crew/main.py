@@ -14,7 +14,7 @@ def run():
     Run the crew.
     """
     inputs = {
-        "product_idea": "AI-powered smart home assistant"
+        "product_idea": "Gen AI"
     }
     
 

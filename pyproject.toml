@@ -10,6 +10,7 @@ dependencies = [
     "duckduckgo-search>=8.1.1",
     "langchain-community>=0.4.1",
     "selenium>=4.41.0",
+    "streamlit>=1.54.0",
     "webdriver-manager>=4.0.2",
 ]
 

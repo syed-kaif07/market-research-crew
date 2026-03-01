@@ -1,21 +1,21 @@
 market_research_task:
   description: >
-    Conduct a comprehensive market analysis including industry size,
+    Conduct a comprehensive market analysis for {product_idea}, including industry size,
     growth trends, demand patterns, emerging opportunities,
     and potential risks relevant to the target market.
   expected_output: >
-    A structured market research report outlining key trends,
+    A structured market research report for {product_idea} outlining key trends,
     growth projections, opportunity areas, and risk factors.
   agent: market_research_specialist
   output_file: output/market_research.md
 
 competitive_intelligence_task:
   description: >
-    Analyze key competitors by evaluating their products,
+    Analyze key competitors of {product_idea} by evaluating their products,
     pricing strategies, positioning, strengths, weaknesses,
     and market share.
   expected_output: >
-    A comparative competitor analysis report highlighting
+    A comparative competitor analysis report for {product_idea} highlighting
     strategic gaps, differentiation opportunities,
     and competitive advantages.
   agent: competitive_intelligence_analyst
@@ -24,29 +24,29 @@ competitive_intelligence_task:
 customer_insights_task:
   description: >
     Analyze customer segments, behavior patterns, feedback,
-    pain points, and unmet needs to uncover actionable insights.
+    pain points, and unmet needs for {product_idea} to uncover actionable insights.
   expected_output: >
-    A detailed customer insights report including personas,
+    A detailed customer insights report for {product_idea} including personas,
     key pain points, motivations, and prioritized needs.
   agent: customer_insights_researcher
   output_file: output/customer_insights.md
 
 product_strategy_task:
   description: >
-    Develop a product positioning strategy and feature roadmap
+    Develop a product positioning strategy and feature roadmap for {product_idea}
     based on market, competitor, and customer analysis findings.
   expected_output: >
-    A strategic product roadmap outlining positioning,
+    A strategic product roadmap for {product_idea} outlining positioning,
     value proposition, and prioritized features.
   agent: product_strategy_advisor
   output_file: output/product_strategy.md
 
 business_analyst_task:
   description: >
-    Synthesize all research findings into a comprehensive business
-    analysis report with actionable recommendations.
+    Synthesize all research findings into a comprehensive business analysis
+    report with actionable recommendations for {product_idea}.
   expected_output: >
-    A complete business analysis report with strategic
+    A complete business analysis report for {product_idea} with strategic
     recommendations and implementation roadmap.
   agent: business_analyst
   output_file: output/business_analysis.md
