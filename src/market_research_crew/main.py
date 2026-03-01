@@ -14,7 +14,7 @@ def run():
     Run the crew.
     """
     inputs = {
-        "product_idea": "Gen AI"
+        "product_idea": "future of Gen ai in stock market"
     }
     
 

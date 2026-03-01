@@ -143,11 +143,10 @@ AGENTS = [
     {"icon": "📈", "name": "Business Analyst",                 "file": "business_analysis.md"},
 ]
 
-BASE_DIR   = os.path.dirname(os.path.abspath(__file__))
-PROJECT_ROOT = os.path.join(BASE_DIR, "..", "..")
-OUTPUT_DIR = os.path.join(PROJECT_ROOT, "output")
-MAIN_PY = os.path.join(BASE_DIR, "..", "..", "main.py")
-
+BASE_DIR     = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.abspath(os.path.join(BASE_DIR, "..", ".."))
+OUTPUT_DIR   = os.path.join(PROJECT_ROOT, "output")
+MAIN_PY      = os.path.join(BASE_DIR, "main.py")
 # ── Helpers ────────────────────────────────────────────────────────────────────
 def get_output(filename):
     path = os.path.join(OUTPUT_DIR, filename)
@@ -178,13 +177,20 @@ def update_main_py(product_idea):
 
 def start_crew_process(product_idea):
     update_main_py(product_idea)
-    process = subprocess.Popen(
-        ["crewai", "run"],
-        cwd=PROJECT_ROOT,  # ← change BASE_DIR to PROJECT_ROOT
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE
+    python_exe = os.path.join(PROJECT_ROOT, ".venv", "Scripts", "python.exe")
+    main_script = os.path.join(PROJECT_ROOT, "src", "market_research_crew", "main.py")
+    
+    subprocess.Popen(
+        [python_exe, "-c", f"""
+import sys
+sys.path.insert(0, r'{os.path.join(PROJECT_ROOT, "src")}')
+from market_research_crew.crew import MarketResearchCrew
+MarketResearchCrew().crew().kickoff(inputs={{"product_idea": "{product_idea}"}})
+"""],
+        cwd=PROJECT_ROOT,
+        stdout=open(os.path.join(PROJECT_ROOT, "crew_log.txt"), "w"),
+        stderr=subprocess.STDOUT
     )
-    return process.pid
 
 # ── Session State ──────────────────────────────────────────────────────────────
 for key, val in [("running", False), ("completed", False), ("product_idea", "")]:
