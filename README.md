@@ -67,18 +67,6 @@ crewai run
 
 ---
 
-## 📁 Output
-
-Reports are saved to the `/output` directory:
-
-```
-output/
-├── market_research.md
-├── competitive_intelligence.md
-├── customer_insights.md
-├── product_strategy.md
-└── business_analysis.md
-```
 
 ---
 
