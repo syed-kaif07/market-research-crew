@@ -165,6 +165,9 @@ llm = LLM(
 
 ---
 
+## 📝 Article
+Read the full build story on Dev.to → [(https://dev.to/syed_kaif777/title-building-a-multi-agent-ai-market-research-tool-with-crewai-groq-22na)]
+
 ## 📬 Connect
 
 Built by [Syed Kaifuddin](https://github.com/syed-kaif07)
