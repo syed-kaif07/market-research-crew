@@ -4,6 +4,8 @@ from crewai.agents.agent_builder.base_agent import BaseAgent
 from typing import List
 from dotenv import load_dotenv
 import os
+import time 
+
 
 load_dotenv()
 
@@ -12,9 +14,23 @@ llm = LLM(
     model=os.environ.get("MODEL"),
     api_key=os.environ.get("GROQ_API_KEY"),
     temperature=0.7,
-    max_tokens=500,
-    max_retries=3,
+    max_tokens=2048,      # increased
+    max_retries=5,        # increased
+    timeout=120,          # 2 min timeout per request
 )
+
+def create_llm_with_retry():
+    """Create LLM with exponential backoff for rate limits."""
+    return LLM(
+        model=os.environ.get("MODEL"),
+        api_key=os.environ.get("GROQ_API_KEY"),
+        temperature=0.7,
+        max_tokens=2048,
+        max_retries=5,
+        timeout=120,
+    )
+
+llm = create_llm_with_retry()
 
 # ── Crew ───────────────────────────────────────────────────────────────────────
 @CrewBase
@@ -115,11 +131,12 @@ class MarketResearchCrew():
     # ── Crew ───────────────────────────────────────────────────────────────────
 
     @crew
-    def crew(self) -> Crew:          # Must be named 'crew' for @crew decorator
+    def crew(self) -> Crew:  # ← 4 spaces indent, inside class
         return Crew(
             agents=self.agents,
             tasks=self.tasks,
             process=Process.sequential,
-            verbose=False,
-            max_rpm=5
+            verbose=True,
+            max_rpm=3,
+            memory=False,
         )
