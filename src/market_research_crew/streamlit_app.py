@@ -7,6 +7,7 @@ Changes from original:
   - Updated status message to mention terminal
   - Removed log_fh / _close_log_fh (no longer needed)
   - All original fixes kept: session_state init, XSS, path traversal, etc.
+  - Fixed hero section margins/spacing between badge and divider
 """
 
 import html
@@ -49,6 +50,16 @@ html, body, [data-testid="stAppViewContainer"] {
     background: radial-gradient(ellipse at 20% 10%, #0D2818 0%, #080B0F 50%);
 }
 h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
+
+/* ── Hero spacing fix ── */
+/* Collapse the gap Streamlit inserts between adjacent st.markdown() calls */
+[data-testid="stVerticalBlock"] > div:has(> [data-testid="stMarkdownContainer"] > div > .hero-badge),
+[data-testid="stVerticalBlock"] > div:has(> [data-testid="stMarkdownContainer"] > div > .hero-title),
+[data-testid="stVerticalBlock"] > div:has(> [data-testid="stMarkdownContainer"] > div > .hero-sub) {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
 .hero-title {
     font-family: 'Space Mono', monospace;
     font-size: 3rem; font-weight: 700; color: #00FF88;
@@ -59,7 +70,7 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
     display: inline-block; background: rgba(0,255,136,0.08);
     border: 1px solid rgba(0,255,136,0.2); color: #00FF88;
     font-family: 'Space Mono', monospace; font-size: 0.7rem;
-    padding: 4px 12px; border-radius: 999px; margin-bottom: 16px; letter-spacing: 2px;
+    padding: 4px 12px; border-radius: 999px; margin-bottom: 4px; letter-spacing: 2px;
 }
 [data-testid="stTextInput"] input {
     background: #0F1419 !important; border: 1px solid #1E2A20 !important;
@@ -101,7 +112,7 @@ h1, h2, h3, h4 { font-family: 'Space Mono', monospace; }
 .status-waiting { background: #1C2128; color: #6B7280; }
 .status-running { background: rgba(255,200,0,0.15); color: #FFC800; }
 .status-done    { background: rgba(0,255,136,0.12); color: #00FF88; }
-.section-divider { border: none; border-top: 1px solid #1C2128; margin: 32px 0; }
+.section-divider { border: none; border-top: 1px solid #1C2128; margin: 24px 0; }
 .success-msg {
     background: rgba(0,255,136,0.08); border: 1px solid rgba(0,255,136,0.25);
     border-radius: 12px; padding: 16px 20px; color: #00FF88;
@@ -245,13 +256,15 @@ for _key, _val in _DEFAULTS.items():
         st.session_state[_key] = _val
 
 
-# Hero
-st.markdown('<div class="hero-badge">POWERED BY CREWAI · GROQ · LLAMA 3.3 70B</div>', unsafe_allow_html=True)
-st.markdown('<p class="hero-title">Market Research<br/>Crew</p>', unsafe_allow_html=True)
-st.markdown(
-    '<p class="hero-sub">5 autonomous AI agents generating comprehensive market research reports</p>',
-    unsafe_allow_html=True,
-)
+# Hero — all three elements in one st.markdown() call to avoid Streamlit's inter-element gaps
+st.markdown("""
+<div style="margin-bottom: 0;">
+    <div class="hero-badge">POWERED BY CREWAI · GROQ · LLAMA 3.3 70B</div>
+    <p class="hero-title">Market Research<br/>Crew</p>
+    <p class="hero-sub">5 autonomous AI agents generating comprehensive market research reports</p>
+</div>
+""", unsafe_allow_html=True)
+
 st.markdown('<hr class="section-divider"/>', unsafe_allow_html=True)
 
 
