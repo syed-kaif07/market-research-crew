@@ -22,7 +22,7 @@ Each agent builds on the previous one's output, producing a cohesive end-to-end 
 
 ## 🖥️ Screenshots
 
-![App UI](screenshots/output.png)
+![App UI](screenshots/ouput.png)
 
 <br/>
 
