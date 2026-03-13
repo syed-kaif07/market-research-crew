@@ -1,32 +1,81 @@
 # 🧠 Market Research Crew
 
-A multi-agent AI system built with **CrewAI** and powered by **Groq's LLaMA 3.3 70B** model. Five specialized AI agents collaborate sequentially to produce a comprehensive market research report for any product idea — with a **Streamlit UI** and **live terminal agent monitoring**.
+> Five specialized AI agents collaborating to generate comprehensive market research reports — powered by **CrewAI** × **Groq LLaMA 3.3 70B**, with a **Streamlit UI** and live terminal monitoring.
+
+![Market Research Crew](screenshots/screenshot-main.png)
 
 ---
 
-## 🚀 Demo
+## ✨ What It Does
 
-Input a product idea like `"AI-powered smart home assistant"` and the crew generates:
+Enter any product idea and get five fully-written research reports in minutes:
 
-- 📊 Market Research Report
-- 🕵️ Competitive Intelligence Report
-- 👥 Customer Insights Report
-- 🗺️ Product Strategy Roadmap
-- 📈 Business Analysis Report
+| # | Agent | Output |
+|---|-------|--------|
+| 1 | 📊 Market Research Specialist | Industry size, trends & opportunities |
+| 2 | 🕵️ Competitive Intelligence Analyst | Competitors, pricing & market share |
+| 3 | 👥 Customer Insights Researcher | Personas, pain points & needs |
+| 4 | 🗺️ Product Strategy Advisor | Positioning strategy & feature roadmap |
+| 5 | 📈 Business Analyst | Actionable recommendations |
 
-> While the Streamlit UI tracks agent progress in real time, the **IDE terminal streams live CrewAI verbose output** — showing every agent's thoughts, tool calls, and completions as they happen.
+Each agent builds on the previous one's output, producing a cohesive end-to-end research report.
 
 ---
 
-## 🤖 Agents
+## 🖥️ Screenshots
 
-| Agent | Role |
-|-------|------|
-| `market_research_specialist` | Analyzes industry size, trends, and opportunities |
-| `competitive_intelligence_analyst` | Evaluates competitors, pricing, and market share |
-| `customer_insights_researcher` | Uncovers customer personas, pain points, and needs |
-| `product_strategy_advisor` | Develops positioning strategy and feature roadmap |
-| `business_analyst` | Synthesizes findings into actionable recommendations |
+![App UI](screenshots/screenshot-main.png)
+![Research Report](screenshots/screenshot-report.png)
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Agent Framework | [CrewAI](https://crewai.com) |
+| LLM | Groq — `llama-3.3-70b-versatile` (free tier) |
+| Frontend | Streamlit |
+| Language | Python 3.13 |
+| Package Manager | uv |
+
+---
+
+## ⚙️ Setup
+
+**1. Clone the repo**
+```bash
+git clone https://github.com/syed-kaif07/market-research-crew.git
+cd market-research-crew
+```
+
+**2. Install dependencies**
+```bash
+pip install uv
+uv sync --prerelease=allow
+```
+
+> `--prerelease=allow` is required — `crewai[litellm]` depends on pre-release packages.
+
+**3. Set up environment variables**
+
+Create a `.env` file in the root:
+```env
+MODEL=groq/llama-3.3-70b-versatile
+GROQ_API_KEY=your_groq_api_key_here
+```
+
+Get a free Groq API key at [console.groq.com](https://console.groq.com) — no credit card required.
+
+**4. Run the Streamlit UI**
+```bash
+python -m streamlit run src/market_research_crew/streamlit_app.py
+```
+
+**Or run directly from terminal**
+```bash
+python src/market_research_crew/main.py --product-idea "your idea here"
+```
 
 ---
 
@@ -36,74 +85,23 @@ Input a product idea like `"AI-powered smart home assistant"` and the crew gener
 User (Streamlit UI)
        │
        ▼
-streamlit_app.py  ──────────────────────────────────────────────►  Browser UI
-       │                                                           (agent cards,
-       │  subprocess.Popen(stdout=None)                            reports, tabs)
-       │
+streamlit_app.py  ──────────────────────────────────────►  Browser UI
+       │                                                  (agent cards + report tabs)
+       │  subprocess.Popen(stdout=None)
        ▼
-main.py  ──►  CrewAI Crew  ──►  Agent 1  ──►  Agent 2  ──►  ...  ──►  Agent 5
-       │             │
-       │             └──  task_callback  ──►  Live colored banners in IDE terminal
-       │
-       ▼
-  output/*.md  (one file per agent, picked up by Streamlit)
+main.py  ──►  CrewAI  ──►  Agent 1  ──►  Agent 2  ──►  ...  ──►  Agent 5
+                  │
+                  └──  task_callback  ──►  Live colored output in IDE terminal
+                  │
+                  ▼
+            output/*.md  (polled by Streamlit every 4s)
 ```
 
-**Both the UI and the terminal update simultaneously** — the UI polls output files every 4 seconds while the terminal streams verbose agent output in real time.
-
----
-
-## 🛠️ Tech Stack
-
-| Layer | Technology |
-|-------|-----------|
-| **Framework** | [CrewAI](https://crewai.com) |
-| **LLM** | Groq — `llama-3.3-70b-versatile` (free tier) |
-| **Frontend** | Streamlit |
-| **Language** | Python 3.13 |
-| **Package Manager** | uv |
-
----
-
-## ⚙️ Setup
-
-### 1. Clone the repo
-```bash
-git clone https://github.com/syed-kaif07/market-research-crew.git
-cd market-research-crew
-```
-
-### 2. Install dependencies
-```bash
-pip install uv
-uv sync --prerelease=allow
-```
-
-### 3. Set up environment variables
-
-Create a `.env` file in the root directory:
-```env
-MODEL=groq/llama-3.3-70b-versatile
-GROQ_API_KEY=your_groq_api_key_here
-```
-
-Get your free Groq API key at: [console.groq.com](https://console.groq.com)
-
-### 4. Run via Streamlit UI
-```bash
-python -m streamlit run src/market_research_crew/streamlit_app.py
-```
-
-### 5. Or run directly from terminal
-```bash
-python src/market_research_crew/main.py --product-idea "your idea here"
-```
+The UI and terminal update **simultaneously** — Streamlit tracks agent progress visually while the terminal streams verbose CrewAI output in real time.
 
 ---
 
 ## 🖥️ Live Terminal Output
-
-When running from either the UI or CLI, the IDE terminal shows live colored agent banners:
 
 ```
 =================================================================
@@ -112,8 +110,6 @@ When running from either the UI or CLI, the IDE terminal shows live colored agen
 =================================================================
 
   Research Topic: future of Gen AI in health sector
-
-  AGENT PIPELINE QUEUE:
 
   1. 📊  Market Research Specialist        [ QUEUED ]
   2. 🕵️  Competitive Intelligence Analyst  [ QUEUED ]
@@ -134,15 +130,15 @@ When running from either the UI or CLI, the IDE terminal shows live colored agen
 
 ## 🔧 Configuration
 
-Agents and tasks are configured via YAML files:
+Agents and tasks are defined in YAML:
 
 ```
 src/market_research_crew/config/
-├── agents.yaml   ← agent roles, goals, and backstories
-└── tasks.yaml    ← task descriptions and output file names
+├── agents.yaml   ← roles, goals, backstories
+└── tasks.yaml    ← task descriptions, output filenames
 ```
 
-To change the LLM or tweak parameters, edit `crew.py`:
+To swap the LLM or tune parameters, edit `crew.py`:
 ```python
 llm = LLM(
     model=os.environ.get("MODEL"),
@@ -159,15 +155,17 @@ llm = LLM(
 ## 📌 Notes
 
 - Uses **Groq's free tier** — no credit card required
-- Agents run **sequentially**, each building on previous results
-- Rate limit: 12,000 tokens/minute on free tier
-- Use `--prerelease=allow` with `uv sync` — crewai[litellm] requires it
+- Agents run **sequentially**, each building on the last
+- Free tier rate limit: **12,000 tokens/minute**
 
 ---
 
-## 📝 Article
-Read the full build story on Dev.to → [(https://dev.to/syed_kaif777/title-building-a-multi-agent-ai-market-research-tool-with-crewai-groq-22na)]
+## 📝 Full Build Article
 
-## 📬 Connect
+Read the full story on Dev.to → [Building a Multi-Agent AI Market Research Tool with CrewAI & Groq](https://dev.to/syed_kaif777/title-building-a-multi-agent-ai-market-research-tool-with-crewai-groq-22na)
+
+---
+
+## 📬 Author
 
 Built by [Syed Kaifuddin](https://github.com/syed-kaif07)
