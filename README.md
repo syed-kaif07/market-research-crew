@@ -2,6 +2,7 @@
 
 > Five specialized AI agents collaborating to generate comprehensive market research reports — powered by **CrewAI** × **Groq LLaMA 3.3 70B**, with a **Streamlit UI** and live terminal monitoring.
 
+![Market Research Crew](screenshots/output.png)
 
 ---
 
@@ -23,8 +24,11 @@ Each agent builds on the previous one's output, producing a cohesive end-to-end 
 
 ## 🖥️ Screenshots
 
-![App UI](screenshots/ouput.png)
-![Research Report](screenshots/terminal-run.png)
+![App UI](screenshots/output.png)
+
+<br/>
+
+![Terminal Run](screenshots/terminal-run.png)
 
 ---
 
@@ -36,7 +40,21 @@ Each agent builds on the previous one's output, producing a cohesive end-to-end 
 | LLM | Groq — `llama-3.3-70b-versatile` (free tier) |
 | Frontend | Streamlit |
 | Language | Python 3.13 |
-| Package Manager | uv |
+| Package Manager | uv / pip |
+
+---
+
+## 📦 Dependencies
+
+```txt
+crewai
+crewai-tools
+streamlit
+python-dotenv
+pyyaml
+requests
+groq
+```
 
 ---
 
@@ -49,12 +67,19 @@ cd market-research-crew
 ```
 
 **2. Install dependencies**
+
+Using `pip`:
+```bash
+pip install -r requirements.txt
+```
+
+Or using `uv`:
 ```bash
 pip install uv
 uv sync --prerelease=allow
 ```
 
-> `--prerelease=allow` is required — `crewai[litellm]` depends on pre-release packages.
+> `--prerelease=allow` is required when using uv — `crewai[litellm]` depends on pre-release packages.
 
 **3. Set up environment variables**
 
