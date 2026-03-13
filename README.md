@@ -2,8 +2,6 @@
 
 > Five specialized AI agents collaborating to generate comprehensive market research reports — powered by **CrewAI** × **Groq LLaMA 3.3 70B**, with a **Streamlit UI** and live terminal monitoring.
 
-![Market Research Crew](screenshots/output.png)
-
 ---
 
 ## ✨ What It Does
