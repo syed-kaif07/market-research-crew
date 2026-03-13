@@ -3,3 +3,5 @@ __pycache__/
 *.pyc
 .env
 output/
+crew_log.txt
+*.log
