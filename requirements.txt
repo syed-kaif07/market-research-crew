@@ -1,0 +1,7 @@
+crewai
+crewai-tools
+streamlit
+python-dotenv
+pyyaml
+requests
+groq
