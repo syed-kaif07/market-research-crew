@@ -2,6 +2,8 @@
 
 > Five specialized AI agents collaborating to generate comprehensive market research reports — powered by **CrewAI** × **Groq LLaMA 3.3 70B**, with a **Streamlit UI** and live terminal monitoring.
 
+![Market Research Crew](screenshots/output.png)
+
 ---
 
 ## ✨ What It Does
@@ -22,7 +24,7 @@ Each agent builds on the previous one's output, producing a cohesive end-to-end 
 
 ## 🖥️ Screenshots
 
-![App UI](screenshots/ouput.png)
+![App UI](screenshots/output.png)
 
 <br/>
 
@@ -64,14 +66,30 @@ git clone https://github.com/syed-kaif07/market-research-crew.git
 cd market-research-crew
 ```
 
-**2. Install dependencies**
+**2. Create a virtual environment**
+
+Using `venv`:
+```bash
+python -m venv .venv
+```
+
+Activate it:
+```bash
+# Windows
+.venv\Scripts\activate
+
+# macOS / Linux
+source .venv/bin/activate
+```
+
+**3. Install dependencies**
 
 Using `pip`:
 ```bash
 pip install -r requirements.txt
 ```
 
-Or using `uv`:
+Or using `uv` (recommended):
 ```bash
 pip install uv
 uv sync --prerelease=allow
