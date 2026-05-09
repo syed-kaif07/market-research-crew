@@ -10,15 +10,6 @@ import time
 load_dotenv()
 
 # ── LLM Configuration ──────────────────────────────────────────────────────────
-llm = LLM(
-    model=os.environ.get("MODEL"),
-    api_key=os.environ.get("GROQ_API_KEY"),
-    temperature=0.7,
-    max_tokens=2048,      # increased
-    max_retries=5,        # increased
-    timeout=120,          # 2 min timeout per request
-)
-
 def create_llm_with_retry():
     """Create LLM with exponential backoff for rate limits."""
     return LLM(
@@ -31,6 +22,17 @@ def create_llm_with_retry():
     )
 
 llm = create_llm_with_retry()
+
+# Lighter LLM config for the final synthesis agent — fewer tokens to stay
+# within Groq's 12K TPM free-tier limit after 4 upstream agents have run.
+llm_synthesis = LLM(
+    model=os.environ.get("MODEL"),
+    api_key=os.environ.get("GROQ_API_KEY"),
+    temperature=0.5,
+    max_tokens=1500,   # trimmed to avoid TPM overflow
+    max_retries=5,
+    timeout=180,       # longer timeout — it synthesises more
+)
 
 # ── Crew ───────────────────────────────────────────────────────────────────────
 @CrewBase
@@ -77,7 +79,7 @@ class MarketResearchCrew():
     def business_analyst(self) -> Agent:
         return Agent(
             config=self.agents_config["business_analyst"],
-            llm=llm
+            llm=llm_synthesis,  # lighter config to respect Groq TPM limit
         )
 
     # ── Tasks ──────────────────────────────────────────────────────────────────
@@ -118,12 +120,15 @@ class MarketResearchCrew():
 
     @task
     def business_analyst_task(self) -> Task:
+        # Sleep 20 s before the final task so the Groq 12K TPM window resets
+        # after the 4 prior agents have consumed most of the minute's budget.
+        time.sleep(20)
         return Task(
             config=self.tasks_config["business_analyst_task"],
+            # Only pass the two most synthesising reports as context to keep
+            # the prompt token count within Groq's free-tier limit.
             context=[
                 self.market_research_task(),
-                self.competitive_intelligence_task(),
-                self.customer_insights_task(),
                 self.product_strategy_task()
             ]
         )
@@ -136,7 +141,7 @@ class MarketResearchCrew():
             agents=self.agents,
             tasks=self.tasks,
             process=Process.sequential,
-            verbose=True,
+            verbose=True, #verbose shows the ouput in terminal
             max_rpm=3,
             memory=False,
         )
